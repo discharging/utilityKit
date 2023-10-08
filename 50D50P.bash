@@ -1,23 +1,46 @@
 #!/bin/bash
 
-# Check if the first argument (directory name) is provided
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <directory_name>"
-    exit 1
-fi
+# # Check if the first argument (directory name) is provided
+# if [ $# -eq 0 ]; then
+#     echo "Usage: $0 <directory_name>"
+#     exit 1
+# fi
 
-# Create the directory with the first argument as its name
-directory_name="/home/kamlesh/Downloads/50 Projects In 50 Days - HTML, CSS & JavaScript/50days50projects/$1"
-mkdir "$directory_name"
+# Directory where you wnat to look for the pattern
+search_directory="/home/kamlesh/Downloads/50 Projects In 50 Days - HTML, CSS & JavaScript/50days50projects"
+
+#Pattern to search for (e.g., "Day")
+pattern="Day"
+
+#Find the highest numbered directory that matches the pattern
+highest_number=0
+
+for dir in "$search_directory"/"$pattern"*; do
+    # Extract the number part of the directory name
+    number=$(basename "$dir" | grep -oE "[0-9]+")
+
+    # Check if the number is greater than the current highest number
+    if [ "$number" -gt "$highest_number" ]; then
+        highest_number="$number"
+    fi
+done
+
+#Increment the highest number to get the next in sequence
+next_number=$((highest_number + 1))
+
+# Create the new directory with the next number in the sequence
+new_directory="${search_directory}/${pattern}${next_number}"
+mkdir "$new_directory"
+
 
 # Create the default files inside the directory
-touch "$directory_name/index.html"
-touch "$directory_name/style.css"
-touch "$directory_name/script.js"
+touch "$new_directory/index.html"
+touch "$new_directory/style.css"
+touch "$new_directory/script.js"
 
 # You can add content to these files if needed
 # For example, to add content to index.html:
-echo "<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +52,7 @@ echo "<!DOCTYPE html>
     <h1>Project starter</h1>
     <script src="script.js"></script>
 </body>
-</html>" > "$directory_name/index.html"
+</html>' > "$new_directory/index.html"
 
 # Optionally, you can add default content to style.css and script.js here.
 echo "@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -49,7 +72,7 @@ body{
     align-items: center;
     overflow: hidden;
 }
-"> "$directory_name/style.css"
+"> "$new_directory/style.css"
 
-echo "Directory '$directory_name' created with default files: index.html, style.css, script.js"
+echo "Directory '$new_directory' created with default files: index.html, style.css, script.js"
 
