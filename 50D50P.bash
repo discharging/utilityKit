@@ -7,7 +7,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Create the directory with the first argument as its name
-directory_name="$1"
+directory_name="/home/kamlesh/Downloads/50 Projects In 50 Days - HTML, CSS & JavaScript/50days50projects/$1"
 mkdir "$directory_name"
 
 # Create the default files inside the directory
