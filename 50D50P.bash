@@ -7,7 +7,7 @@
 # fi
 
 # Directory where you wnat to look for the pattern
-search_directory="/home/kamlesh/Downloads/50 Projects In 50 Days - HTML, CSS & JavaScript/50days50projects"
+search_directory="/home/kamlesh/Desktop/50days50projects"
 
 #Pattern to search for (e.g., "Day")
 pattern="Day"
@@ -74,5 +74,6 @@ body{
 }
 "> "$new_directory/style.css"
 
-echo "Directory '$new_directory' created with default files: index.html, style.css, script.js"
+notify-send "🤩Welcome to Day$next_number🤩"
 
+codium $new_directory
